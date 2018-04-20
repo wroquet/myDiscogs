@@ -5,6 +5,7 @@
  */
 
 import React, { Component } from 'react';
+import { StackNavigator, SwitchNavigator } from 'react-navigation';
 import { Platform, StyleSheet, Text, View } from 'react-native';
 
 const instructions = Platform.select({
@@ -14,10 +15,25 @@ const instructions = Platform.select({
 		'Shake or press menu button for dev menu'
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+const AppStack = StackNavigator({ Home: HomeScreen, Other: OtherScreen });
+const AuthStack = StackNavigator({ Login: Login });
+const SwitchNavigator = SwitchNavigator(
+	{
+		AuthLoading: AuthLoadingScreen,
+	  	App: AppStack,
+	  	Auth: AuthStack,
+	},
+	{
+	  	initialRouteName: 'AuthLoading',
+	}
+);
+
+export default class App extends Component {
   	render() {
 		return (
+			<SwitchNavigator />
+		)
+		/* return (
 			<View style={styles.container}>
 				<Text style={styles.welcome}>Welcome to React Native!</Text>
 				<Text style={styles.instructions}>
@@ -25,11 +41,11 @@ export default class App extends Component<Props> {
 				</Text>
 				<Text style={styles.instructions}>{instructions}</Text>
 			</View>
-		);
+		); */
 	}
 }
 
-const styles = StyleSheet.create({
+/* const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'center',
@@ -46,4 +62,4 @@ const styles = StyleSheet.create({
 		color: '#333333',
 		marginBottom: 5
 	}
-});
+}); */
